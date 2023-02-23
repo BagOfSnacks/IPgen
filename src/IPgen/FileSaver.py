@@ -1,3 +1,4 @@
+import json
 from abc import ABC, abstractmethod
 
 from .const import PATH
@@ -41,4 +42,11 @@ class JSONSaver(FileSaver):
         self.extension = ".json"
 
     def save_to_file(self):
-        print(self.filename)
+        with open(self.get_loc(), "w") as f:
+            print(self.content_to_json())
+            json.dump(self.content_to_json(), f, indent=4)
+
+    def content_to_json(self):
+        result = list(map(str, self.contents))
+        d = {"ip_addresses": result}
+        return d

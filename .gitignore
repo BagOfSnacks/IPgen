@@ -142,5 +142,6 @@ dmypy.json
 # Cython debug symbols
 cython_debug/
 
-*.idea
-.idea
+# Test result files
+example.json
+example.txt
