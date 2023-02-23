@@ -1,28 +1,44 @@
 from abc import ABC, abstractmethod
 
+from .const import PATH
+
 
 class FileSaver(ABC):
     def __init__(self, location: str, contents, **kwargs):
         self.location = location
         self.contents = contents
-        self.save_to_file()
+        self.extension = ""
+
+        print(PATH)
 
     @abstractmethod
     def save_to_file(self):
         pass
 
+    def get_loc(self):
+        return self.location + self.extension
+
 
 class TxtSaver(FileSaver):
-    def save_to_file(self):
-        with open(self.location, "w") as f:
-            f.write(self.contents)
-        print(self.location)
+    def __init__(self, location: str, contents, **kwargs):
+        super().__init__(location, contents, **kwargs)
 
-    def list_to_file(self):
-        result = [str(x) + "\n" for x in self.contents]
-        print(result)
+        self.extension = ".txt"
+
+    def save_to_file(self):
+        with open(self.get_loc(), "w") as f:
+            f.write(self.prepare_contents())
+
+    def prepare_contents(self) -> str:
+        result = ''.join([str(x) + "\n" for x in self.contents])
+        return result
 
 
 class JSONSaver(FileSaver):
+    def __init__(self, location: str, contents, **kwargs):
+        super().__init__(location, contents, **kwargs)
+
+        self.extension = ".json"
+
     def save_to_file(self):
         print(self.location)

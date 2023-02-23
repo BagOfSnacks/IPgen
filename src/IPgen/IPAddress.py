@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 from dataclasses import dataclass
 from typing import Tuple, NamedTuple
 
-from cIPrange import IPRange
+from .cIPrange import IPRange
 
 IPv4 = NamedTuple('IPv4', [('range1', IPRange), ('range2', IPRange), ('range3', IPRange), ('range4', IPRange)])
 IPv6 = NamedTuple('IPv6', [('range1', IPRange), ('range2', IPRange), ('range3', IPRange), ('range4', IPRange)])

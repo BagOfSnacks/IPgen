@@ -1,4 +1,4 @@
-from const import IP_RANGE_MIN, IP_RANGE_MAX
+from .const import IP_RANGE_MIN, IP_RANGE_MAX
 
 
 class IPRange:

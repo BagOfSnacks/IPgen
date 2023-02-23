@@ -1,10 +1,10 @@
 from random import sample
 from typing import Optional, Sequence
 
-from ArgParser import ArgParser
-from FileSaver import TxtSaver, JSONSaver, FileSaver
-from IPAddress import IPAddressV4
-from const import IP_RANGE_MIN, IP_RANGE_MAX, IP_v4_BYTES
+from .ArgParser import ArgParser
+from .FileSaver import TxtSaver, JSONSaver
+from .IPAddress import IPAddressV4
+from .const import IP_RANGE_MIN, IP_RANGE_MAX, IP_v4_BYTES
 
 
 def random_IPv4_Adress() -> IPAddressV4:
@@ -15,15 +15,15 @@ def main(argv: Optional[Sequence[str]] = None):
     arg_parser = ArgParser(argv)
     AMOUNT_OF_ADDRESSES = arg_parser.get_setting('amount')
 
-    ip_adresses = [random_IPv4_Adress() for x in range(0, AMOUNT_OF_ADDRESSES)]
+    ip_addresses = [random_IPv4_Adress() for x in range(0, AMOUNT_OF_ADDRESSES)]
 
     if loc_txt := arg_parser.get_setting('filename'):
-        file_saver: FileSaver = TxtSaver(loc_txt)
+        TxtSaver(loc_txt, ip_addresses).save_to_file()
 
     if loc_json := arg_parser.get_setting('json'):
-        file_saver: FileSaver = JSONSaver(loc_json)
+        JSONSaver(loc_json, ip_addresses).save_to_file()
 
-    print(ip_adresses)
+    print(ip_addresses)
 
 if __name__ == "__main__":
     main()
