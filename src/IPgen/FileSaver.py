@@ -4,8 +4,8 @@ from .const import PATH
 
 
 class FileSaver(ABC):
-    def __init__(self, location: str, contents, **kwargs):
-        self.location = location
+    def __init__(self, filename: str, contents, **kwargs):
+        self.filename = filename
         self.contents = contents
         self.extension = ""
 
@@ -16,12 +16,12 @@ class FileSaver(ABC):
         pass
 
     def get_loc(self):
-        return self.location + self.extension
+        return self.filename + self.extension
 
 
 class TxtSaver(FileSaver):
-    def __init__(self, location: str, contents, **kwargs):
-        super().__init__(location, contents, **kwargs)
+    def __init__(self, filename: str, contents, **kwargs):
+        super().__init__(filename, contents, **kwargs)
 
         self.extension = ".txt"
 
@@ -35,10 +35,10 @@ class TxtSaver(FileSaver):
 
 
 class JSONSaver(FileSaver):
-    def __init__(self, location: str, contents, **kwargs):
-        super().__init__(location, contents, **kwargs)
+    def __init__(self, filename: str, contents, **kwargs):
+        super().__init__(filename, contents, **kwargs)
 
         self.extension = ".json"
 
     def save_to_file(self):
-        print(self.location)
+        print(self.filename)
