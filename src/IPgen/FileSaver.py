@@ -32,7 +32,7 @@ class TxtSaver(FileSaver):
 
     def prepare_contents(self) -> str:
         result = ''.join([str(x) + "\n" for x in self.contents])
-        return result
+        return result.rstrip()
 
 
 class JSONSaver(FileSaver):
