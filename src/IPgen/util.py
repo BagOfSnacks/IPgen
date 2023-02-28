@@ -1,6 +1,6 @@
 import re
 
-from .const import IP_v4_PATTERN
+from IPgen.const import IP_v4_PATTERN
 
 
 def is_ipv4_address(address: str) -> bool:

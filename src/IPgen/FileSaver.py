@@ -1,7 +1,7 @@
 import json
 from abc import ABC, abstractmethod
 
-from .const import PATH
+from IPgen.const import PATH
 
 
 class FileSaver(ABC):

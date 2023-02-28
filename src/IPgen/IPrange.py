@@ -1,4 +1,4 @@
-from .const import IP_v4_RANGE_MIN, IP_v4_RANGE_MAX
+from IPgen.const import IP_v4_RANGE_MIN, IP_v4_RANGE_MAX
 
 
 class IPRange:
@@ -6,6 +6,8 @@ class IPRange:
     range_max: int = IP_v4_RANGE_MAX
 
     def __init__(self, range: int):
+        if not isinstance(range, int):
+            raise TypeError("IP Address can only contain numbers")
         self.range: int = self.clamp_range(range)
 
     def clamp_range(self, range: int) -> int:

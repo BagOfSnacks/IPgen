@@ -3,10 +3,10 @@
 from random import sample
 from typing import Optional, Sequence
 
-from .ArgParser import ArgParser
-from .FileSaver import TxtSaver, JSONSaver
-from .IPAddress import IPAddressV4
-from .const import IP_v4_RANGE_MIN, IP_v4_RANGE_MAX, IP_v4_BYTES
+from IPgen.ArgParser import ArgParser
+from IPgen.FileSaver import TxtSaver, JSONSaver
+from IPgen.IPAddress import IPAddressV4
+from IPgen.const import IP_v4_RANGE_MIN, IP_v4_RANGE_MAX, IP_v4_BYTES
 
 
 def random_ipv4_address() -> IPAddressV4:
