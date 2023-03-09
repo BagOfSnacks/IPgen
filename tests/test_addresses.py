@@ -115,30 +115,32 @@ def test_address_comparison_when_mostly_equal():
 
 def test_address_comparison_works_v6():
     """Compare each address by their first number"""
-    a = IPAddressV4((54, 12, 125, 256))
-    b = IPAddressV4((28, 12, 125, 256))
+    a = IPAddressV6((255, 312, 1, 0, 10000, 2560, 31244, 821))
+    b = IPAddressV6((128, 111, 3, 0, 20000, 3560, 51244, 333))
     assert a > b
 
 
 def test_address_comparison_when_equal_v6():
-    a = IPAddressV4((128, 12, 125, 256))
-    b = IPAddressV4((128, 12, 125, 256))
+    a = IPAddressV6((128, 111, 3, 0, 20000, 3560, 51244, 333))
+    b = IPAddressV6((128, 111, 3, 0, 20000, 3560, 51244, 333))
     assert a == b
 
 
 def test_address_comparison_when_all_equal_v6():
-    a = IPAddressV4((1, 1, 1, 1))
-    b = IPAddressV4((1, 1, 1, 1))
+    a = IPAddressV6((1, 1, 1, 1, 1, 1, 1, 1))
+    b = IPAddressV6((1, 1, 1, 1, 1, 1, 1, 1))
     assert a == b
 
 
 def test_address_comparison_when_mostly_equal_v6():
-    a = IPAddressV4((1, 1, 1, 1))
-    b = IPAddressV4((1, 1, 2, 1))
+    a = IPAddressV6((128, 111, 3, 0, 20000, 3560, 51244, 333))
+    b = IPAddressV6((128, 111, 3, 0, 20000, 3560, 51244, 334))
     assert a < b
 
 
 # Sorting
+
+# ---- IPv4 ---- #
 
 def test_address_sorting_works():
     """Check if addresses are sorted properly"""
@@ -158,5 +160,19 @@ def test_address_sorting_with_close_ranges():
 
     expected = [b, a]
     addresses = [a, b]
+
+    assert sorted(addresses) == expected
+
+
+# ---- IPv6 ---- #
+
+def test_address_sorting_works_v6():
+    """Check if addresses are sorted properly"""
+    a = IPAddressV6((128, 111, 3, 0, 20000, 3560, 51244, 333))
+    b = IPAddressV6((1, 1, 3, 1, 1, 1, 1, 1))
+    c = IPAddressV6((3, 1, 1, 1, 1, 1, 1, 1))
+
+    expected = [b, c, a]
+    addresses = [a, b, c]
 
     assert sorted(addresses) == expected
