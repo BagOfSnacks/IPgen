@@ -1,7 +1,7 @@
 import pytest
 
-from IPgen.__main__ import random_ipv4_address
-from IPgen.util import is_ipv4_address
+from IPgen.__main__ import random_ipv4_address, random_ipv6_address
+from IPgen.util import is_ipv4_address, is_ipv6_address
 from IPgen.IPrange import IPRange
 from IPgen.IPAddress import IPAddressV4
 
@@ -10,39 +10,41 @@ from IPgen.IPAddress import IPAddressV4
 
 # Value checks
 
-def test_generate_valid_ip_address():
+def test_generate_random_valid_ipv4_address():
     address = str(random_ipv4_address())
     assert is_ipv4_address(address) is True
 
 
-def test_generate_invalid_ip_address():
-    address = "256.256.256.256"
-    assert is_ipv4_address(address) is False
+@pytest.mark.parametrize('address, expected', [
+    ("256.256.256.256", False),
+    ("-1.256.256.256", False),
+    ("255.255.255", False),
+    ("255.255.255.", False),
+    (".255.255.255", False),
+    ("a.a.a.a", False),
+])
+
+def test_generate_invalid_ip_address(address, expected):
+    assert is_ipv4_address(address) is expected
 
 
-def test_generate_invalid_ip_address_negative():
-    address = "-1.256.256.256"
-    assert is_ipv4_address(address) is False
+# ---- IPv6 ----
 
+# Value checks
 
-def test_generate_invalid_ip_address_short():
-    address = "255.255.255"
-    assert is_ipv4_address(address) is False
+def test_generate_random_valid_ipv6_address():
+    address = str(random_ipv6_address())
+    assert is_ipv6_address(address) is True
 
+@pytest.mark.parametrize('address, expected', [
+    ('0000:0000:0000:0000:0000:0000:0000:0000', True),
+    ('FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF', True),
+    ('F:F:F:F:F:F:F:F', True),
+    ('0:0:0:0:0:0:0:0', True),
+])
 
-def test_generate_invalid_ip_address_dotend():
-    address = "255.255.255."
-    assert is_ipv4_address(address) is False
-
-
-def test_generate_invalid_ip_address_dotstart():
-    address = ".255.255.255"
-    assert is_ipv4_address(address) is False
-
-
-def test_generate_invalid_ip_address_string():
-    address = "a.a.a.a"
-    assert is_ipv4_address(address) is False
+def test_ipv6_address(address, expected):
+    assert is_ipv6_address(address) is expected
 
 
 # Exceptions

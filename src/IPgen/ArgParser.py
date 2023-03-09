@@ -8,6 +8,7 @@ class ArgParser:
                                  '--version',
                                  type=int,
                                  default=4,
+                                 choices=[4, 6],
                                  help='Choose IP Address version\n'
                                       'Accepts integer of either "4" or "6" as input')
         self.parser.add_argument('-n',
