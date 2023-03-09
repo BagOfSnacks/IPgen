@@ -3,7 +3,6 @@ from dataclasses import dataclass, field
 from typing import Tuple, NamedTuple
 
 from IPgen.IPrange import IPRange_v4, IPRange_v6
-from IPgen.util import num_to_hex
 
 
 IPv4 = NamedTuple('IPv4',

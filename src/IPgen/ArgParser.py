@@ -1,6 +1,7 @@
 import argparse
 from typing import Any
 
+
 class ArgParser:
     def __init__(self, args: [str]):
         self.parser = argparse.ArgumentParser()

@@ -17,7 +17,7 @@ class IPRange(ABC):
         pass
 
     @abstractmethod
-    def clamp_range(self, input):
+    def clamp_range(self, val):
         pass
 
     @abstractmethod
@@ -39,12 +39,12 @@ class IPRange_v4(IPRange):
         object.__setattr__(self, 'value', self.clamp_range(value))
         object.__setattr__(self, 'sort_index', self.value)
 
-    def clamp_range(self, value: int) -> int:
-        if value < self.range_min:
+    def clamp_range(self, val: int) -> int:
+        if val < self.range_min:
             return self.range_min
-        elif value > self.range_max:
+        elif val > self.range_max:
             return self.range_max
-        return value
+        return val
 
     def __repr__(self) -> str:
         return str(self.value)
@@ -65,12 +65,12 @@ class IPRange_v6(IPRange):
         object.__setattr__(self, 'value', self.clamp_range(value))
         object.__setattr__(self, 'sort_index', self.value)
 
-    def clamp_range(self, input: int):
-        if input < self.range_min:
+    def clamp_range(self, val: int):
+        if val < self.range_min:
             return "0000"
-        if input > self.range_max:
+        if val > self.range_max:
             return "FFFF"
-        return num_to_hex(input)
+        return num_to_hex(val)
 
     def __repr__(self) -> str:
         return str(self.value)

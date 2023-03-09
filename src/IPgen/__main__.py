@@ -18,6 +18,7 @@ def random_ipv4_address() -> IPAddressV4:
     address = tuple(sample(range(IP_v4_RANGE_MIN, IP_v4_RANGE_MAX+1), IP_v4_LENGTH))
     return IPAddressV4(address)
 
+
 def random_ipv6_address() -> IPAddressV6:
     address = tuple(sample(range(IP_v6_RANGE_MIN, IP_v6_RANGE_MAX+1), IP_v6_LENGTH))
     return IPAddressV6(address)
@@ -29,9 +30,9 @@ def main(argv: Optional[Sequence[str]] = None):
 
     # Generate x amount of addresses based on selected version
     if arg_parser.get_setting('version') == 6:
-        ip_addresses = [random_ipv6_address() for x in range(0, AMOUNT_OF_ADDRESSES)]
+        ip_addresses = [random_ipv6_address() in range(0, AMOUNT_OF_ADDRESSES)]
     else:
-        ip_addresses = [random_ipv4_address() for x in range(0, AMOUNT_OF_ADDRESSES)]
+        ip_addresses = [random_ipv4_address() in range(0, AMOUNT_OF_ADDRESSES)]
 
     # If save location has been specified save to it
     if loc_txt := arg_parser.get_setting('filename'):
