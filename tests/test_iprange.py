@@ -15,6 +15,11 @@ from IPgen.IPrange import IPRange_v6, IPRange_v4
 def test_ipv4_range(value: int, expected: str):
     assert str(IPRange_v4(value)) == expected
 
+
+def test_raises_exception_when_input_is_a_string():
+    with pytest.raises(TypeError):
+        IPRange_v4("a")
+
 # ---- IPv6 ---- #
 
 @pytest.mark.parametrize('value, expected', [
@@ -27,3 +32,8 @@ def test_ipv4_range(value: int, expected: str):
 
 def test_ipv6_range(value: int, expected: str):
     assert str(IPRange_v6(value)) == expected
+
+
+def test_raises_exception_when_input_is_not_int():
+    with pytest.raises(TypeError):
+        IPRange_v6("b")

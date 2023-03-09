@@ -2,8 +2,8 @@ import pytest
 
 from IPgen.__main__ import random_ipv4_address, random_ipv6_address
 from IPgen.util import is_ipv4_address, is_ipv6_address
-from IPgen.IPrange import IPRange
-from IPgen.IPAddress import IPAddressV4
+from IPgen.IPrange import IPRange_v4, IPRange_v6
+from IPgen.IPAddress import IPAddressV4, IPAddressV6
 
 
 # ---- IPv4 ----
@@ -17,6 +17,9 @@ def test_generate_random_valid_ipv4_address():
 
 @pytest.mark.parametrize('address, expected', [
     ("256.256.256.256", False),
+    ("255.255.255.255", True),
+    ("0.0.0.0", True),
+    ("1.12.255.190", True),
     ("-1.256.256.256", False),
     ("255.255.255", False),
     ("255.255.255.", False),
@@ -24,8 +27,24 @@ def test_generate_random_valid_ipv4_address():
     ("a.a.a.a", False),
 ])
 
-def test_generate_invalid_ip_address(address, expected):
+def test_ipv4_address(address, expected):
     assert is_ipv4_address(address) is expected
+
+
+# Exceptions
+
+def test_address_creation_without_exception():
+    IPAddressV4((1, 12, 125, 256))
+
+
+def test_address_creation_too_short():
+    with pytest.raises(Exception):
+        IPAddressV4((1, 12, 125))
+
+
+def test_raises_exception_when_ip_address_is_invalid():
+    with pytest.raises(Exception):
+        IPAddressV4(("a", "2", "a", "1"))
 
 
 # ---- IPv6 ----
@@ -49,21 +68,23 @@ def test_ipv6_address(address, expected):
 
 # Exceptions
 
-def test_address_creation_without_exception():
-    IPAddressV4((1, 12, 125, 256))
+def test_address_creation_without_exception_v6():
+    IPAddressV6((255, 312, 1, 0, 10000, 2560, 31244, 821))
 
 
-def test_raises_exception_when_ip_address_is_invalid():
+def test_raises_exception_when_ip_address_is_invalid_v6():
     with pytest.raises(Exception):
-        IPAddressV4(("a", "2", "a", "1"))
+        IPAddressV6(("aa", "bb", "cc", "aa", "bb", "cc", "aa", "bb"))
 
 
-def test_raises_exception_when_input_is_a_string():
-    with pytest.raises(TypeError):
-        IPRange("a")
+def test_ipv6_address_too_short():
+    with pytest.raises(Exception):
+        IPAddressV6((255, 312, 1, 0, 10000, 2560))
 
 
 # Comparisons
+
+# ---- IPv4 ---- #
 
 def test_address_comparison_works():
     """Compare each address by their first number"""
@@ -85,6 +106,33 @@ def test_address_comparison_when_all_equal():
 
 
 def test_address_comparison_when_mostly_equal():
+    a = IPAddressV4((1, 1, 1, 1))
+    b = IPAddressV4((1, 1, 2, 1))
+    assert a < b
+
+
+# ---- IPv6 ---- #
+
+def test_address_comparison_works_v6():
+    """Compare each address by their first number"""
+    a = IPAddressV4((54, 12, 125, 256))
+    b = IPAddressV4((28, 12, 125, 256))
+    assert a > b
+
+
+def test_address_comparison_when_equal_v6():
+    a = IPAddressV4((128, 12, 125, 256))
+    b = IPAddressV4((128, 12, 125, 256))
+    assert a == b
+
+
+def test_address_comparison_when_all_equal_v6():
+    a = IPAddressV4((1, 1, 1, 1))
+    b = IPAddressV4((1, 1, 1, 1))
+    assert a == b
+
+
+def test_address_comparison_when_mostly_equal_v6():
     a = IPAddressV4((1, 1, 1, 1))
     b = IPAddressV4((1, 1, 2, 1))
     assert a < b
