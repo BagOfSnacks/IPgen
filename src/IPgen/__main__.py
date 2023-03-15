@@ -30,9 +30,9 @@ def main(argv: Optional[Sequence[str]] = None):
 
     # Generate x amount of addresses based on selected version
     if arg_parser.get_setting('version') == 6:
-        ip_addresses = [random_ipv6_address() in range(0, AMOUNT_OF_ADDRESSES)]
+        ip_addresses = [str(random_ipv6_address()) for _ in range(0, AMOUNT_OF_ADDRESSES)]
     else:
-        ip_addresses = [random_ipv4_address() in range(0, AMOUNT_OF_ADDRESSES)]
+        ip_addresses = [str(random_ipv4_address()) for _ in range(0, AMOUNT_OF_ADDRESSES)]
 
     # If save location has been specified save to it
     if loc_txt := arg_parser.get_setting('filename'):
