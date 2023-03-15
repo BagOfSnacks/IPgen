@@ -1,33 +1,28 @@
 import json
+import pathlib
 from abc import ABC, abstractmethod
-
-from IPgen.const import PATH
 
 
 class FileSaver(ABC):
-    def __init__(self, filename: str, contents, **kwargs):
-        self.filename = filename
-        self.contents = contents
-        self.extension = ""
+    extension = ""
 
-        print(PATH)
+    def __init__(self, path, contents, **kwargs):
+        self.path = pathlib.Path(path)
+        self.contents = contents
+        self.path = self.path.with_suffix(self.extension)
 
     @abstractmethod
     def save_to_file(self):
         pass
 
-    def get_loc(self):
-        return self.filename + self.extension
-
 
 class TxtSaver(FileSaver):
-    def __init__(self, filename: str, contents, **kwargs):
-        super().__init__(filename, contents, **kwargs)
-
+    def __init__(self, path, contents, **kwargs):
         self.extension = ".txt"
+        super().__init__(path, contents, **kwargs)
 
     def save_to_file(self):
-        with open(self.get_loc(), "w") as f:
+        with open(self.path, "w") as f:
             f.write(self.prepare_contents())
 
     def prepare_contents(self) -> str:
@@ -36,14 +31,12 @@ class TxtSaver(FileSaver):
 
 
 class JSONSaver(FileSaver):
-    def __init__(self, filename: str, contents, **kwargs):
-        super().__init__(filename, contents, **kwargs)
-
+    def __init__(self, path, contents, **kwargs):
         self.extension = ".json"
+        super().__init__(path, contents, **kwargs)
 
     def save_to_file(self):
-        with open(self.get_loc(), "w") as f:
-            print(self.content_to_json())
+        with open(self.path, "w") as f:
             json.dump(self.content_to_json(), f, indent=4)
 
     def content_to_json(self):
