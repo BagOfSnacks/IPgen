@@ -14,7 +14,8 @@ class IPRange(ABC):
 
     @abstractmethod
     def __init__(self, value):
-        pass
+        if not isinstance(value, int):
+            raise TypeError("Address partition isn't an integer")
 
     @abstractmethod
     def clamp_range(self, val):
@@ -34,8 +35,6 @@ class IPRange_v4(IPRange):
 
     def __init__(self, value: int):
         super().__init__(value)
-        if not isinstance(value, int):
-            raise TypeError("IPv4 Address can only contain numbers")
         object.__setattr__(self, 'value', self.clamp_range(value))
         object.__setattr__(self, 'sort_index', self.value)
 
@@ -60,8 +59,6 @@ class IPRange_v6(IPRange):
 
     def __init__(self, value: int):
         super().__init__(value)
-        if not isinstance(value, int):
-            raise TypeError("Value isn't an integer")
         object.__setattr__(self, 'value', self.clamp_range(value))
         object.__setattr__(self, 'sort_index', self.value)
 

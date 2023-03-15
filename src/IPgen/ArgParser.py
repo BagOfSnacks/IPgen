@@ -5,6 +5,16 @@ from typing import Any
 class ArgParser:
     def __init__(self, args: [str]):
         self.parser = argparse.ArgumentParser()
+        self.set_default_args()
+
+        self.args = self.parser.parse_args(args)
+        self.settings: dict = vars(self.args)
+        print(self.settings)
+
+    def get_setting(self, key: str) -> Any:
+        return self.settings.get(key)
+
+    def set_default_args(self):
         self.parser.add_argument('-v',
                                  '--version',
                                  type=int,
@@ -16,7 +26,7 @@ class ArgParser:
                                  '--amount',
                                  type=int,
                                  default=1,
-                                 help='Specify number of generated IP adresses')
+                                 help='Specify number of generated IP addresses')
         self.parser.add_argument('-i',
                                  '--info',
                                  help='Display info of generated address(es) in JSON format\n'
@@ -30,10 +40,3 @@ class ArgParser:
                                  '--json',
                                  type=str,
                                  help='Save list of addresses to a specified location as a json file')
-
-        self.args = self.parser.parse_args(args)
-        self.settings: dict = vars(self.args)
-        print(self.settings)
-
-    def get_setting(self, key: str) -> Any:
-        return self.settings.get(key)
