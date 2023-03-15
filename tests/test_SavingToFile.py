@@ -76,5 +76,4 @@ def test_json_contents_are_ipv6_addresses():
     with open(TEST_JSON_FILE + ".json", "r") as f:
         content = json.load(f)
         valid = map(is_ipv6_address, content[JSON_LIST_ABBREVIATION])
-    print(list(valid))
     assert all(valid) is True

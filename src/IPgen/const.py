@@ -2,6 +2,13 @@ import os
 PATH = os.getcwd()
 
 
+# Project Metadata
+PYTHON_VER = "3.11"
+PYTEST_VER = "7.2.0"
+PYTHON_VER_NOT_MET = "Tests cannot be run.\n" f"Minimum required Python version: {PYTHON_VER}"
+PYTEST_VER_NOT_MET = "Tests cannot be run.\n" f"Minimum required Pytest module version: {PYTEST_VER}"
+
+# IP Addresses
 IP_v4_PATTERN = r'^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$'
 IP_v4_RANGE_MIN = 0
 IP_v4_RANGE_MAX = 255
