@@ -1,12 +1,19 @@
+"""Handles saving IP Addresses as files of .txt and .json extensions"""
+
 import json
 import pathlib
+
 from abc import ABC, abstractmethod
+from typing import Sequence
 
 
 class FileSaver(ABC):
+    """
+    Abstract class that handles saving list of addresses to a file.
+    """
     extension = ""
 
-    def __init__(self, path, contents, **kwargs):
+    def __init__(self, path, contents: Sequence, **kwargs):
         self.path = pathlib.Path(path)
         self.contents = contents
         self.path = self.path.with_suffix(self.extension)
@@ -17,7 +24,23 @@ class FileSaver(ABC):
 
 
 class TxtSaver(FileSaver):
-    def __init__(self, path, contents, **kwargs):
+    """
+        Abstract class that handles saving list of addresses to a .txt file.
+
+        Params:
+
+            path: str or path-like
+                Absolute / relative path to where a .txt file should be saved
+
+            contents: Any
+                List of IP Addresses to be saved
+
+            **kwargs: keyword arguments
+                Additional parameters
+                Currently unused
+    """
+
+    def __init__(self, path, contents: Sequence, **kwargs):
         self.extension = ".txt"
         super().__init__(path, contents, **kwargs)
 
@@ -31,7 +54,23 @@ class TxtSaver(FileSaver):
 
 
 class JSONSaver(FileSaver):
-    def __init__(self, path, contents, **kwargs):
+    """
+        Abstract class that handles to-json format conversion and saving list of addresses to a .json file.
+
+        Params:
+
+            path: str or path-like
+                Absolute / relative path to where a .json file should be saved
+
+            contents: Any
+                List of IP Addresses to be saved
+
+            **kwargs: keyword arguments
+                Additional parameters
+                Currently unused
+    """
+
+    def __init__(self, path, contents: Sequence, **kwargs):
         self.extension = ".json"
         super().__init__(path, contents, **kwargs)
 

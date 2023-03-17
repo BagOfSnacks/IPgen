@@ -1,3 +1,5 @@
+"""Partitions of IP Addresses"""
+
 from dataclasses import dataclass, field
 
 from abc import ABC, abstractmethod
@@ -7,6 +9,10 @@ from IPgen.util import num_to_hex
 
 @dataclass(order=True, frozen=True)
 class IPRange(ABC):
+    """
+    Abstract data class that represents a single fragment/partition of IPv4 or IPv6 address.
+    Provides sorting and order/comparison logic between addresses of the same type.
+    """
     sort_index: int = field(repr=False, init=False)
     value: int
     range_min: int
@@ -28,6 +34,14 @@ class IPRange(ABC):
 
 @dataclass(order=True, frozen=True)
 class IPRange_v4(IPRange):
+    """
+        Represents a single partition of an IPv4 Address.
+
+        Params:
+            value: int
+                Integer value of a partition that then gets automatically clamped to a range of 0-255
+    """
+
     sort_index: int = field(repr=False, init=False)
     value: int
     range_min: int = IP_v4_RANGE_MIN
@@ -51,6 +65,15 @@ class IPRange_v4(IPRange):
 
 @dataclass(order=True, frozen=True)
 class IPRange_v6(IPRange):
+    """
+        Represents a single partition of an IPv6 Address.
+
+        Params:
+            value: int
+                Integer value of a partition that then gets automatically clamped to a range of 0-65535
+                Value then gets converted to a hexadecimal system
+    """
+
     sort_index: int = field(repr=False, init=False)
     value: str
     range_min: int = IP_v6_RANGE_MIN
