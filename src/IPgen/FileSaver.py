@@ -9,7 +9,7 @@ from typing import Sequence
 
 class FileSaver(ABC):
     """
-    Abstract class that handles saving list of addresses to a file.
+    Abstract class that handles saving list of IP addresses to a file.
     """
     extension = ""
 
@@ -45,10 +45,18 @@ class TxtSaver(FileSaver):
         super().__init__(path, contents, **kwargs)
 
     def save_to_file(self):
+        """
+        Save a list of IP Addresses into a .txt file at target location
+        """
+        IP_adresses: str = self.prepare_contents()
+
         with open(self.path, "w") as f:
-            f.write(self.prepare_contents())
+            f.write(IP_adresses)
 
     def prepare_contents(self) -> str:
+        """
+        Transform list of IP Addresses into a properly formatted string
+        """
         result = ''.join([str(x) + "\n" for x in self.contents])
         return result.rstrip()
 
@@ -75,10 +83,18 @@ class JSONSaver(FileSaver):
         super().__init__(path, contents, **kwargs)
 
     def save_to_file(self):
-        with open(self.path, "w") as f:
-            json.dump(self.content_to_json(), f, indent=4)
+        """
+        Save list of IP Addresses into a .json file at target location
+        """
+        IP_addresses: dict = self.content_to_json()
 
-    def content_to_json(self):
+        with open(self.path, "w") as f:
+            json.dump(IP_addresses, f, indent=4)
+
+    def content_to_json(self) -> dict:
+        """
+        Convert list of IP Addresses into a Python dictionary
+        """
         result = list(map(str, self.contents))
         d = {"ip_addresses": result}
         return d

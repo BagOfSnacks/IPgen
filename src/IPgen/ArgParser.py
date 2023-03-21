@@ -19,18 +19,18 @@ class ArgParser:
                 -f [path], --filename [path]    save list of generated addresses as a .txt file to a specified location
                 -j [path], --json [path]        save list of generated addresses as a .json file to a specified location
         """
-        print(args)
+
         self.parser = argparse.ArgumentParser()
-        self.set_default_args()
+        self.setup()
 
         self.args = self.parser.parse_args(args)
-        self.settings: dict = vars(self.args)
-        print(self.settings)
+        self.args: dict = vars(self.args)
+        print(self.args)
 
     def get_setting(self, key: str) -> Any:
-        return self.settings.get(key)
+        return self.args.get(key)
 
-    def set_default_args(self):
+    def setup(self):
         self.parser.add_argument('-n',
                                  '--amount',
                                  type=int,
@@ -48,8 +48,8 @@ class ArgParser:
                                  help='Display info of generated address(es) in JSON format\n'
                                       'Creates an API call to https://ipinfo.io/\n'
                                       'Requires internet connection to work')
-        self.parser.add_argument('-f',
-                                 '--filename',
+        self.parser.add_argument('-t',
+                                 '--txt',
                                  type=str,
                                  help='Save list of addresses to a specified location as a .txt file')
         self.parser.add_argument('-j',

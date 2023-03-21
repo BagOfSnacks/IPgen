@@ -2,7 +2,6 @@ import pytest
 
 from IPgen.__main__ import random_ipv4_address, random_ipv6_address
 from IPgen.util import is_ipv4_address, is_ipv6_address
-from IPgen.IPrange import IPRange_v4, IPRange_v6
 from IPgen.IPAddress import IPAddressV4, IPAddressV6
 
 
@@ -55,12 +54,14 @@ def test_generate_random_valid_ipv6_address():
     address = str(random_ipv6_address())
     assert is_ipv6_address(address) is True
 
+
 @pytest.mark.parametrize('address, expected', [
     ('0000:0000:0000:0000:0000:0000:0000:0000', True),
     ('FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF', True),
     ('F:F:F:F:F:F:F:F', True),
     ('0:0:0:0:0:0:0:0', True),
 ])
+
 
 def test_ipv6_address(address, expected):
     assert is_ipv6_address(address) is expected

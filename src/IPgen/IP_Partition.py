@@ -8,12 +8,12 @@ from IPgen.util import num_to_hex
 
 
 @dataclass(order=True, frozen=True)
-class IPRange(ABC):
+class IP_Partition(ABC):
     """
     Abstract data class that represents a single fragment/partition of IPv4 or IPv6 address.
     Provides sorting and order/comparison logic between addresses of the same type.
     """
-    sort_index: int = field(repr=False, init=False)
+    _sort_index: int = field(repr=False, init=False)
     value: int
     range_min: int
     range_max: int
@@ -33,7 +33,7 @@ class IPRange(ABC):
 
 
 @dataclass(order=True, frozen=True)
-class IPRange_v4(IPRange):
+class IP_Partition_v4(IP_Partition):
     """
         Represents a single partition of an IPv4 Address.
 
@@ -42,7 +42,7 @@ class IPRange_v4(IPRange):
                 Integer value of a partition that then gets automatically clamped to a range of 0-255
     """
 
-    sort_index: int = field(repr=False, init=False)
+    _sort_index: int = field(repr=False, init=False)
     value: int
     range_min: int = IP_v4_RANGE_MIN
     range_max: int = IP_v4_RANGE_MAX
@@ -50,7 +50,7 @@ class IPRange_v4(IPRange):
     def __init__(self, value: int):
         super().__init__(value)
         object.__setattr__(self, 'value', self.clamp_range(value))
-        object.__setattr__(self, 'sort_index', self.value)
+        object.__setattr__(self, '_sort_index', self.value)
 
     def clamp_range(self, val: int) -> int:
         if val < self.range_min:
@@ -64,7 +64,7 @@ class IPRange_v4(IPRange):
 
 
 @dataclass(order=True, frozen=True)
-class IPRange_v6(IPRange):
+class IP_Partition_v6(IP_Partition):
     """
         Represents a single partition of an IPv6 Address.
 
@@ -74,7 +74,7 @@ class IPRange_v6(IPRange):
                 Value then gets converted to a hexadecimal system
     """
 
-    sort_index: int = field(repr=False, init=False)
+    _sort_index: int = field(repr=False, init=False)
     value: str
     range_min: int = IP_v6_RANGE_MIN
     range_max: int = IP_v6_RANGE_MAX
@@ -83,7 +83,7 @@ class IPRange_v6(IPRange):
     def __init__(self, value: int):
         super().__init__(value)
         object.__setattr__(self, 'value', self.clamp_range(value))
-        object.__setattr__(self, 'sort_index', self.value)
+        object.__setattr__(self, '_sort_index', self.value)
 
     def clamp_range(self, val: int):
         if val < self.range_min:
