@@ -5,6 +5,8 @@ from dataclasses import dataclass, field
 from typing import Tuple, NamedTuple
 
 from IPgen.IP_Partition import IP_Partition_v4, IP_Partition_v6
+from IPgen.const import IP_v4_PARTITION_DIVIDER, IP_v6_PARTITION_DIVIDER
+from IPgen.util import is_ipv4_address, is_ipv6_address, num_to_hex
 
 
 IPv4 = NamedTuple('IPv4',
@@ -33,7 +35,11 @@ class IPAddress(ABC):
         pass
 
     @abstractmethod
-    def __str__(self):
+    def __str__(self) -> str:
+        pass
+
+    @abstractmethod
+    def ip_address_from_str(cls, address_str: str) -> object:
         pass
 
 
@@ -62,6 +68,21 @@ class IPAddressV4(IPAddress):
         """
         return '.'.join([str(byte) for byte in self.address])
 
+    @classmethod
+    def ip_address_from_str(cls, address_str: str) -> object:
+        """
+            Construct IPAddressV4 instance from a valid string
+
+            :param address_str: str
+                    An IPAddressV4 representation as a string
+        """
+        if not is_ipv4_address(address_str):
+            raise ValueError("String input isn't a valid IPv4 address")
+
+        address_partitions: list[str] = address_str.split(IP_v4_PARTITION_DIVIDER)
+        address_partitions: list[int] = [int(part) for part in address_partitions]
+        return cls(tuple(address_partitions))
+
 
 @dataclass(order=True, frozen=True)
 class IPAddressV6(IPAddress):
@@ -85,3 +106,19 @@ class IPAddressV6(IPAddress):
         Format: x:x:x:x:x:x:x:x
         """
         return ':'.join([str(byte) for byte in self.address])
+        IPAddressV6.ip_address_from_str()
+
+    @classmethod
+    def ip_address_from_str(cls, address_str: str) -> object:
+        """
+            Construct IPAddressV6 instance from a valid string
+
+            :param address_str: str
+                    An IPAddressV6 representation as a string
+        """
+        if not is_ipv6_address(address_str):
+            raise ValueError("String input isn't a valid IPv6 address")
+
+        address_partitions: list[str] = address_str.split(IP_v6_PARTITION_DIVIDER)
+        number_partitions: list[int] = [int(part, 16) for part in address_partitions]
+        return cls(tuple(number_partitions))

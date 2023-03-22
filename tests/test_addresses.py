@@ -26,8 +26,29 @@ def test_generate_random_valid_ipv4_address():
     ("a.a.a.a", False),
 ])
 
-def test_ipv4_address(address, expected):
+def test_ipv4_address(address: str, expected):
     assert is_ipv4_address(address) is expected
+
+
+# From string construction
+
+@pytest.mark.parametrize('address_string, expected', [
+    ('255.255.255.255', IPAddressV4),
+    ('0.0.0.0', IPAddressV4)
+])
+
+def test_create_IPv4_Address_from_string(address_string: str, expected: IPAddressV4):
+    assert type(IPAddressV4.ip_address_from_str(address_string)) is expected
+
+
+@pytest.mark.parametrize('address_string, expected', [
+    ('255.255.255.255', '255.255.255.255'),
+    ('0.0.0.0', '0.0.0.0')
+])
+
+def test_create_IPv4_Address_from_string_and_compare(address_string: str, expected: str):
+    address = IPAddressV4.ip_address_from_str(address_string)
+    assert str(address) == expected
 
 
 # Exceptions
@@ -44,6 +65,19 @@ def test_address_creation_too_short():
 def test_raises_exception_when_ip_address_is_invalid():
     with pytest.raises(Exception):
         IPAddressV4(("a", "2", "a", "1"))
+
+
+@pytest.mark.parametrize('address_string', [
+    '256.256.256.256',
+    '-1.-1.-1.-1',
+    '1/1/1/1',
+    '0.0.0.0.0',
+    'F.F.F.F',
+])
+
+def test_ipv4_from_str_invalid(address_string: str):
+    with pytest.raises(ValueError):
+        IPAddressV4.ip_address_from_str(address_string)
 
 
 # ---- IPv6 ----
@@ -67,6 +101,27 @@ def test_ipv6_address(address, expected):
     assert is_ipv6_address(address) is expected
 
 
+# From string construction
+
+@pytest.mark.parametrize('address_string, expected', [
+    ('FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF', IPAddressV6),
+    ('0000:0000:0000:0000:0000:0000:0000:0000', IPAddressV6)
+])
+
+def test_create_IPv6_Address_from_string(address_string: str, expected: IPAddressV6):
+    assert type(IPAddressV6.ip_address_from_str(address_string)) is expected
+
+
+@pytest.mark.parametrize('address_string, expected', [
+    ('FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF', 'FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF'),
+    ('0000:0000:0000:0000:0000:0000:0000:0000', '0:0:0:0:0:0:0:0')
+])
+
+def test_create_IPv6_Address_from_string_and_compare(address_string: str, expected: str):
+    address = IPAddressV6.ip_address_from_str(address_string)
+    assert str(address) == expected
+
+
 # Exceptions
 
 def test_address_creation_without_exception_v6():
@@ -81,6 +136,19 @@ def test_raises_exception_when_ip_address_is_invalid_v6():
 def test_ipv6_address_too_short():
     with pytest.raises(Exception):
         IPAddressV6((255, 312, 1, 0, 10000, 2560))
+
+
+@pytest.mark.parametrize('address_string', [
+    '255.255.255.255',
+    '-1:-1:-1:-1:-1:-1:-1:-1',
+    'P:P:P:P:P:P:P:P',
+    'F:F:F:F:F',
+    'F:F:F:F:F:F:F:F:F',
+])
+
+def test_ipv6_from_str_invalid(address_string: str):
+    with pytest.raises(ValueError):
+        IPAddressV6.ip_address_from_str(address_string)
 
 
 # Comparisons
