@@ -73,6 +73,8 @@ class IPAddressV4(IPAddress):
         """
             Construct IPAddressV4 instance from a valid string
 
+            ex. '255.103.64.18' -> IPAddressv4(255, 103, 64, 18)
+
             :param address_str: str
                     An IPAddressV4 representation as a string
         """
@@ -112,6 +114,8 @@ class IPAddressV6(IPAddress):
     def ip_address_from_str(cls, address_str: str) -> object:
         """
             Construct IPAddressV6 instance from a valid string
+
+            ex. '0:0:0:0:0:0:0:0' -> IPAddressv6(0, 0, 0, 0, 0, 0, 0, 0)
 
             :param address_str: str
                     An IPAddressV6 representation as a string
