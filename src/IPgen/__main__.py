@@ -1,5 +1,7 @@
 #!/usr/bin/env python3
 
+import sys
+
 from random import sample
 from typing import Optional, Sequence
 
@@ -44,6 +46,7 @@ def main(argv: Optional[Sequence[str]] = None):
         JSONSaver(loc_json, ip_addresses).save_to_file()
 
     print([list(map(str, ip_addresses))])
+    sys.exit(0)
 
 
 if __name__ == "__main__":
