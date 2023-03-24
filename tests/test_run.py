@@ -37,4 +37,4 @@ def test_console_output(capsys):
     captured = capsys.readouterr().out
     captured = captured.replace("\n", "")
 
-    assert captured.startswith(DEFAULT_OUT)  # Necessary because the generated IP Addresses will always differ
+    assert captured.startswith(default_out)  # Necessary because the generated IP Addresses will always differ
