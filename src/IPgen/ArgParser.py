@@ -1,10 +1,10 @@
 """Console argument parser"""
 
-import argparse
+from argparse import ArgumentParser
 from typing import Any
 
 
-class ArgParser:
+class ArgParser(ArgumentParser):
     def __init__(self, args: list[str]):
         """
         Parse console arguments for use in script.
@@ -20,10 +20,10 @@ class ArgParser:
                 -j [path], --json [path]        save list of generated addresses as a .json file to a specified location
         """
 
-        self.parser = argparse.ArgumentParser()
+        super().__init__()
         self.setup()
 
-        self.args = self.parser.parse_args(args)
+        self.args = self.parse_args(args)
         self.args: dict = vars(self.args)
         print(self.args)
 
@@ -31,28 +31,28 @@ class ArgParser:
         return self.args.get(key)
 
     def setup(self):
-        self.parser.add_argument('-n',
+        self.add_argument('-n',
                                  '--amount',
                                  type=int,
                                  default=1,
                                  help='Specify number of generated IP addresses')
-        self.parser.add_argument('-v',
+        self.add_argument('-v',
                                  '--version',
                                  type=int,
                                  default=4,
                                  choices=[4, 6],
                                  help='Choose IP Address version\n'
                                       'Accepts integer of either "4" or "6" as input')
-        self.parser.add_argument('-i',
+        self.add_argument('-i',
                                  '--info',
                                  help='Display info of generated address(es) in JSON format\n'
                                       'Creates an API call to https://ipinfo.io/\n'
                                       'Requires internet connection to work')
-        self.parser.add_argument('-t',
+        self.add_argument('-t',
                                  '--txt',
                                  type=str,
                                  help='Save list of addresses to a specified location as a .txt file')
-        self.parser.add_argument('-j',
+        self.add_argument('-j',
                                  '--json',
                                  type=str,
                                  help='Save list of addresses to a specified location as a json file')

@@ -6,7 +6,7 @@ from typing import Tuple, NamedTuple
 
 from IPgen.IP_Partition import IP_Partition_v4, IP_Partition_v6
 from IPgen.const import IP_v4_PARTITION_DIVIDER, IP_v6_PARTITION_DIVIDER
-from IPgen.util import is_ipv4_address, is_ipv6_address, num_to_hex
+from IPgen.util import is_ipv4_address, is_ipv6_address
 
 
 IPv4 = NamedTuple('IPv4',
@@ -72,11 +72,7 @@ class IPAddressV4(IPAddress):
     def ip_address_from_str(cls, address_str: str) -> object:
         """
             Construct IPAddressV4 instance from a valid string
-
             ex. '255.103.64.18' -> IPAddressv4(255, 103, 64, 18)
-
-            :param address_str: str
-                    An IPAddressV4 representation as a string
         """
         if not is_ipv4_address(address_str):
             raise ValueError("String input isn't a valid IPv4 address")
@@ -114,11 +110,7 @@ class IPAddressV6(IPAddress):
     def ip_address_from_str(cls, address_str: str) -> object:
         """
             Construct IPAddressV6 instance from a valid string
-
             ex. '0:0:0:0:0:0:0:0' -> IPAddressv6(0, 0, 0, 0, 0, 0, 0, 0)
-
-            :param address_str: str
-                    An IPAddressV6 representation as a string
         """
         if not is_ipv6_address(address_str):
             raise ValueError("String input isn't a valid IPv6 address")
