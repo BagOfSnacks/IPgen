@@ -1,4 +1,5 @@
 import subprocess
+import pytest
 
 from IPgen.const import PATH
 
@@ -18,9 +19,16 @@ def test_run_via_console():
     assert exit_code == 0
 
 
-def test_run_via_console_with_invalid_args():
+@pytest.mark.parametrize('args, expected', [
+    (['n a'], 1),
+    (['-n a'], 1),
+    (['-n a'], 1),
+    (['-ja 1'], 1),
+    (['-j 1'], 1),
+])
+def test_run_via_console_with_invalid_args(args: list[str], expected: int):
     exit_code = run_module(['-n a'])
-    assert exit_code != 0
+    assert exit_code == expected
 
 
 def test_console_output(capsys):
