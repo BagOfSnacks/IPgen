@@ -20,7 +20,7 @@ To use this module, you'll need to have Python installed on your computer. You c
 pip install pytest
 ```
 
-**`NOTE:`**  Make sure that you have PIP package mangaer installed on your device.  
+**`NOTE:`**  Make sure that you have PIP package manager installed on your device.  
   
   
 ### Repository Download
@@ -47,7 +47,7 @@ IPgen is a script launched via console and it also produces output to that conso
   
 Navigate to the ```./IPgen/src``` directory containing the project code and run the script via command line tool using the command:
 ```
-python3 -m IPgenhttps://github.com/BagOfSnacks/IPgen/edit/main/README.md#run-ipgen-from-console
+python3 -m IPgen
 ```  
   
 ### Run module globally
@@ -77,16 +77,19 @@ To see list of parameters use ```python -m IPgen -h``` command.
 List of flags:  
 
 ```
-  -h, --help            show this help message and exit
-  -n AMOUNT, --amount AMOUNT
-                        Specify number of generated IP addresses
-  -v {4,6}, --version {4,6}
-                        Choose IP Address version  
-                        Accepts integer of either "4" or "6" as input
-  -i INFO, --info INFO  Display info of generated address(es) in JSON format
-                        Creates an API call to http://ip-api.com/
-                        Requires internet connection to work
+  -h, --help                  Show this help message and exit
+  
+  -n AMOUNT, --amount AMOUNT  Specify number of generated IP addresses
+                        
+  -v {4,6}, --version {4,6}   Choose IP Address version  
+                              Accepts integer of either "4" or "6" as input
+                              
+  -i, --info                  Display info of generated address(es) in JSON format
+                              Creates an API call to http://ip-api.com/
+                              Requires internet connection to work
+                              
   -t TXT, --txt TXT     Save list of addresses to a specified location as a .txt file
+  
   -j JSON, --json JSON  Save list of addresses to a specified location as a json file
 ```  
   
