@@ -20,7 +20,7 @@ To use this module, you'll need to have Python installed on your computer. You c
 pip install pytest
 ```
 
-**`NOTE:`**  Make sure that you have PIP package mangaer installed on your device.  
+**`NOTE:`**  Make sure that you have PIP package manager installed on your device.  
   
   
 ### Repository Download
