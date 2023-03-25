@@ -84,7 +84,7 @@ List of flags:
                         Choose IP Address version  
                         Accepts integer of either "4" or "6" as input
   -i INFO, --info INFO  Display info of generated address(es) in JSON format
-                        Creates an API call to https://ipinfo.io/
+                        Creates an API call to http://ip-api.com/
                         Requires internet connection to work
   -t TXT, --txt TXT     Save list of addresses to a specified location as a .txt file
   -j JSON, --json JSON  Save list of addresses to a specified location as a json file
