@@ -2,30 +2,12 @@
 
 import sys
 
-from random import sample
 from typing import Optional, Sequence
 
 from IPgen.ArgParser import ArgParser
 from IPgen.FileSaver import TxtSaver, JSONSaver
 from IPgen.IPAddress import IPAddressV4, IPAddressV6
-from IPgen.const import IP_v4_RANGE_MIN, \
-    IP_v4_RANGE_MAX, \
-    IP_v4_LENGTH, \
-    IP_v6_LENGTH, \
-    IP_v6_RANGE_MIN, \
-    IP_v6_RANGE_MAX
-
-
-def random_ipv4_address() -> IPAddressV4:
-    address_partition_range = range(IP_v4_RANGE_MIN, IP_v4_RANGE_MAX+1)
-    address = tuple(sample(address_partition_range, IP_v4_LENGTH))
-    return IPAddressV4(address)
-
-
-def random_ipv6_address() -> IPAddressV6:
-    address_partition_range = range(IP_v6_RANGE_MIN, IP_v6_RANGE_MAX+1)
-    address = tuple(sample(address_partition_range, IP_v6_LENGTH))
-    return IPAddressV6(address)
+from IPgen.generators import random_ipv4_address, random_ipv6_address
 
 
 def main(argv: Optional[Sequence[str]] = None):

@@ -3,8 +3,8 @@
 from dataclasses import dataclass, field
 
 from abc import ABC, abstractmethod
-from IPgen.const import IP_v4_RANGE_MIN, IP_v4_RANGE_MAX, IP_v6_RANGE_MAX, IP_v6_RANGE_MIN
 from IPgen.util import num_to_hex
+from IPgen.const import IP_v4_RANGE_MIN, IP_v4_RANGE_MAX, IP_v6_RANGE_MAX, IP_v6_RANGE_MIN
 
 
 @dataclass(order=True, frozen=True)

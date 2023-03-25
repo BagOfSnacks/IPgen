@@ -1,8 +1,8 @@
 import pytest
 
-from IPgen.__main__ import random_ipv4_address, random_ipv6_address
-from IPgen.util import is_ipv4_address, is_ipv6_address
 from IPgen.IPAddress import IPAddressV4, IPAddressV6
+from IPgen.util import is_ipv4_address, is_ipv6_address
+from IPgen.generators import random_ipv4_address, random_ipv6_address
 
 
 # ---- IPv4 ----
