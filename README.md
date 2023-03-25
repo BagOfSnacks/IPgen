@@ -83,7 +83,7 @@ List of flags:
   -v {4,6}, --version {4,6}
                         Choose IP Address version  
                         Accepts integer of either "4" or "6" as input
-  -i INFO, --info INFO  Display info of generated address(es) in JSON format
+  -i, --info            Display info of generated address(es) in JSON format
                         Creates an API call to http://ip-api.com/
                         Requires internet connection to work
   -t TXT, --txt TXT     Save list of addresses to a specified location as a .txt file
