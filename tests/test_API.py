@@ -50,11 +50,11 @@ except:
 
 
 def test_API_call_successfull_v4(API_call_v4):
-    print(API_call_v4)
+    assert API_call_v4['status'] == 'success'
 
 
 def test_API_call_successfull_v6(API_call_v6):
-    print(API_call_v6)
+    assert API_call_v6['status'] == 'success'
 
 
 def test_API_call_fail_v4(API_call_invalid_v4):
