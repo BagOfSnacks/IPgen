@@ -113,7 +113,7 @@ class IP_Partition_v6(IP_Partition):
         elif val > "FFFF":
             return "FFFF"
         else:
-            return val
+            return val.upper()
 
     def __repr__(self) -> str:
         return self.value

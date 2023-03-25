@@ -122,7 +122,7 @@ def test_address_creation_without_exception_v6():
 
 def test_raises_exception_when_ip_address_is_invalid_v6():
     with pytest.raises(Exception):
-        IPAddressV6(("aa", "bb", "cc", "aa", "bb", "cc", "aa", "bb"))
+        IPAddressV6((1.1, 2.2, 3.3, 4.4, 5.5, 6.6, 7.7, 8.8))
 
 
 def test_ipv6_address_too_short():
