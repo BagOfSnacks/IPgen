@@ -1,9 +1,10 @@
 """Partitions of IP Addresses"""
 
 from dataclasses import dataclass, field
-
 from abc import ABC, abstractmethod
-from IPgen.util import num_to_hex
+from typing import Union
+
+from IPgen.util import num_to_hex, is_ipv6_partition
 from IPgen.const import IP_v4_RANGE_MIN, IP_v4_RANGE_MAX, IP_v6_RANGE_MAX, IP_v6_RANGE_MIN
 
 
@@ -20,8 +21,7 @@ class IP_Partition(ABC):
 
     @abstractmethod
     def __init__(self, value):
-        if not isinstance(value, int):
-            raise TypeError("Address partition isn't an integer")
+        pass
 
     @abstractmethod
     def clamp_range(self, val):
@@ -49,6 +49,10 @@ class IP_Partition_v4(IP_Partition):
 
     def __init__(self, value: int):
         super().__init__(value)
+
+        if not isinstance(value, int):
+            raise ValueError("Input value has to be of a int type")
+
         object.__setattr__(self, 'value', self.clamp_range(value))
         object.__setattr__(self, '_sort_index', self.value)
 
@@ -80,17 +84,36 @@ class IP_Partition_v6(IP_Partition):
     range_max: int = IP_v6_RANGE_MAX
 
 
-    def __init__(self, value: int):
+    def __init__(self, value: Union[str, int]):
         super().__init__(value)
-        object.__setattr__(self, 'value', self.clamp_range(value))
+
+        if isinstance(value, str):
+            object.__setattr__(self, 'value', self.clamp_range_str(value))
+        elif isinstance(value, int):
+            object.__setattr__(self, 'value', self.clamp_range(value))
+        else:
+            raise TypeError("Input value has to be of a int or string type")
+
         object.__setattr__(self, '_sort_index', self.value)
 
-    def clamp_range(self, val: int):
+    def clamp_range(self, val: int) -> str:
         if val < self.range_min:
             return "0000"
-        if val > self.range_max:
+        elif val > self.range_max:
             return "FFFF"
-        return num_to_hex(val)
+        else:
+            return num_to_hex(val)
+
+    def clamp_range_str(self, val: str) -> str:
+        if not is_ipv6_partition(val):
+            raise ValueError("Value is not a valid IPv6 partition")
+
+        if val < "0000":
+            return "0000"
+        elif val > "FFFF":
+            return "FFFF"
+        else:
+            return val
 
     def __repr__(self) -> str:
-        return str(self.value)
+        return self.value

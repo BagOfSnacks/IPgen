@@ -41,7 +41,7 @@ def test_str_is_valid_ipv4_partition(value: str, expected: bool):
 
 
 def test_raises_exception_when_input_is_a_string():
-    with pytest.raises(TypeError):
+    with pytest.raises(ValueError):
         IP_Partition_v4("a")
 
 
@@ -58,9 +58,10 @@ def test_ipv6_range(value: int, expected: str):
     assert str(IP_Partition_v6(value)) == expected
 
 
-def test_raises_exception_when_input_is_not_int():
+def test_raises_exception_when_input_is_not_int_or_str():
     with pytest.raises(TypeError):
-        IP_Partition_v6("b")
+        IP_Partition_v6(1.0)
+
 
 @pytest.mark.parametrize('value, expected', [
     (random_ipv6_partition(), True),
@@ -73,3 +74,12 @@ def test_raises_exception_when_input_is_not_int():
 ])
 def test_str_is_valid_ipv6_partition(value: str, expected: bool):
     assert is_ipv6_partition(value) == expected
+
+
+@pytest.mark.parametrize('value, expected', [
+    (IP_Partition_v6("FF"), "FF"),
+    (IP_Partition_v6("0000"), "0000"),
+    (IP_Partition_v6("7B"), "7B"),
+])
+def test_ipv6_partition_creation_from_str(value: str, expected: bool):
+    assert str(value) == expected

@@ -104,7 +104,6 @@ class IPAddressV6(IPAddress):
         Format: x:x:x:x:x:x:x:x
         """
         return ':'.join([str(byte) for byte in self.address])
-        IPAddressV6.ip_address_from_str()
 
     @classmethod
     def ip_address_from_str(cls, address_str: str) -> object:
