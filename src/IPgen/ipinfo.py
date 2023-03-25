@@ -1,7 +1,7 @@
 import requests
 
 
-class APIRequest():
+class APIRequest:
     """Class representation of an API request"""
 
     def __init__(self):
@@ -15,7 +15,7 @@ class APIRequest():
         request = requests.get(url, headers=self.HEADERS)
         return self._get_result(request)
 
-    def format_request(self, url: str, IP: str):
+    def format_request(self, url: str, IP: str) -> str:
         return f"{url}{IP}"
 
     def _get_result(self, response: requests.Response) -> dict:
