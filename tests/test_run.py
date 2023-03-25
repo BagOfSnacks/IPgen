@@ -32,7 +32,7 @@ def test_run_via_console_with_invalid_args(args: list[str], expected: int):
 
 
 def test_console_output(capsys):
-    default_out = r"{'amount': 1, 'version': 4, 'info': None, 'txt': None, 'json': None}"
+    default_out = r"{'amount': 1, 'version': 4, 'info': False, 'txt': None, 'json': None}"
     run_module()
     captured = capsys.readouterr().out
     captured = captured.replace("\n", "")
