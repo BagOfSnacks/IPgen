@@ -30,6 +30,8 @@ IPv6 = NamedTuple('IPv6',
 class IPAddress(ABC):
     """Abstract data class representation of IP Address"""
 
+    address: NamedTuple = field(default=None, init=False)
+
     @abstractmethod
     def __init__(self):
         pass

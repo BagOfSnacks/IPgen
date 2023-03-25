@@ -89,7 +89,7 @@ class JSONSaver(FileSaver):
         IP_addresses: dict = self.content_to_json()
 
         with open(self.path, "w") as f:
-            json.dump(IP_addresses, f, indent=4)
+            json.dump(IP_addresses, f, indent=5)
 
     def content_to_json(self) -> dict:
         """

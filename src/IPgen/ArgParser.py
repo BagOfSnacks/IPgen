@@ -45,8 +45,9 @@ class ArgParser(ArgumentParser):
                                       'Accepts integer of either "4" or "6" as input')
         self.add_argument('-i',
                                  '--info',
+                                 action='store_true',
                                  help='Display info of generated address(es) in JSON format\n'
-                                      'Creates an API call to https://ipinfo.io/\n'
+                                      'Creates an API call to http://ip-api.com/\n'
                                       'Requires internet connection to work')
         self.add_argument('-t',
                                  '--txt',
