@@ -2,18 +2,21 @@
 
 import requests
 
+from IPgen.const import API_URL
+from IPgen.util import is_ipv6_address, is_ipv4_address
+
 
 class APIRequest:
     """Class representation of an API request"""
 
     def __init__(self):
-        self.API_URL = "http://ip-api.com/json/"
         self.HEADERS = {'Content-Type': 'application/json'}
-        self.json_response = ...
-        self.response_code: int = ...
 
-    def send_API_request(self, IP: str) -> dict:
-        url = self.format_request(self.API_URL, IP)
+    def send_API_request(self, IP: str, URL: str = API_URL) -> dict:
+        if not is_ipv4_address(IP) and not is_ipv6_address(IP):
+            raise Exception('Input is not a valid IP address')
+
+        url = self.format_request(URL, IP)
         request = requests.get(url, headers=self.HEADERS)
         return self._get_result(request)
 
@@ -22,10 +25,6 @@ class APIRequest:
 
     def _get_result(self, response: requests.Response) -> dict:
         if response.status_code == 200:
-            self.response_code = response.status_code
-            self.json_response = response.json()
             return response.json()
         else:
-            self.response_code = response.status_code
-            self.json_response = None
             raise Exception(f'ERROR: {response.status_code}')

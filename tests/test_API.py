@@ -38,18 +38,6 @@ def API_call_v6(random_ipv4, API_caller):
     return response
 
 
-@pytest.fixture
-def API_call_invalid_v4(API_caller):
-    response = API_caller.send_API_request("-1.-1.-1.-1")
-    return response
-
-
-@pytest.fixture
-def API_call_invalid_v6(API_caller):
-    response = API_caller.send_API_request("-1.-1.-1.-1")
-    return response
-
-
 def test_API_call_successfull_v4(API_call_v4):
     assert API_call_v4['status'] == 'success'
 
@@ -58,9 +46,26 @@ def test_API_call_successfull_v6(API_call_v6):
     assert API_call_v6['status'] == 'success'
 
 
-def test_API_call_fail_v4(API_call_invalid_v4):
-    assert API_call_invalid_v4['status'] == 'fail'
+def test_API_call_fail_v4(API_caller):
+    response = API_caller.send_API_request('192.168.1.1')
+    assert response['status'] == 'fail'
 
 
-def test_API_call_fail_v6(API_call_invalid_v6):
-    assert API_call_invalid_v6['status'] == 'fail'
+def test_API_call_fail_v6(API_caller):
+    response = API_caller.send_API_request('FD13:0FB5:4E00:46D3:FFFF:FFFF:FFFF:FFFF')
+    assert response['status'] == 'fail'
+
+
+def test_API_call_v4_invalid_address(API_caller):
+    with pytest.raises(Exception):
+        API_caller.send_API_request('-1.-1.-1.-1')
+
+
+def test_API_call_v6_invalid_address(API_caller):
+    with pytest.raises(Exception):
+        API_caller.send_API_request('M:M:M:M:M:M:M:M')
+
+
+def test_API_call_raise_exception(API_caller):
+    with pytest.raises(Exception):
+        API_caller.send_API_request('')
