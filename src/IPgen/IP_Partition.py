@@ -83,7 +83,6 @@ class IP_Partition_v6(IP_Partition):
     range_min: int = IP_v6_RANGE_MIN
     range_max: int = IP_v6_RANGE_MAX
 
-
     def __init__(self, value: Union[str, int]):
         super().__init__(value)
 
