@@ -8,8 +8,17 @@ Generate list of random IP addresses and export them to a txt or json file.
 ### Prerequisites
 
 ```
-Python: >= 3.11  
-Pytest: >= 7.2.0 (testing-only)
+Python >= 3.11  
+requests >= 2.28.2, <3.0  
+urllib3 >= 1.26.15, <2.0  
+```  
+  
+#### Optional (testing-only)
+
+```
+pytest >= 7.2.0
+coverage >= 7.2.2
+pytest-cov >= 4.0.0
 ```
 
 To use this module, you'll need to have Python installed on your computer. You can download the latest version of Python from the [official Python website](https://www.python.org/downloads/).  
