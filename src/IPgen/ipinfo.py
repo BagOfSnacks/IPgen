@@ -10,7 +10,7 @@ class APIRequest:
         self.API_URL = "http://ip-api.com/json/"
         self.HEADERS = {'Content-Type': 'application/json'}
         self.json_response = ...
-        self.response_code = ...
+        self.response_code: int = ...
 
     def send_API_request(self, IP: str) -> dict:
         url = self.format_request(self.API_URL, IP)
@@ -22,6 +22,10 @@ class APIRequest:
 
     def _get_result(self, response: requests.Response) -> dict:
         if response.status_code == 200:
+            self.response_code = response.status_code
+            self.json_response = response.json()
             return response.json()
         else:
+            self.response_code = response.status_code
+            self.json_response = None
             raise Exception(f'ERROR: {response.status_code}')
