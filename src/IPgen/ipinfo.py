@@ -1,3 +1,5 @@
+"""Create requests to http://ip-api.com/json/"""
+
 import requests
 
 
