@@ -61,7 +61,7 @@ python3 -m IPgen
   
 ### Run module globally
   
-If you have installed the package as a module as shown in [#Module Installation](https://github.com/BagOfSnacks/IPgen/edit/main/README.md#module-installation) part, you can use this module from anywhere via the same [command](https://github.com/BagOfSnacks/IPgen/edit/main/README.md#run-ipgen-from-console), without changing the current working directory.  
+If you have installed the package as a module as shown in [#Module Installation](https://github.com/BagOfSnacks/IPgen#run-ipgen-from-console) part, you can use this module from anywhere via the same [command](https://github.com/BagOfSnacks/IPgen/edit/main/README.md#run-ipgen-from-console), without changing the current working directory.  
    
 ### Example usage and output
   
