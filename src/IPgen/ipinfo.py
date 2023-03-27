@@ -27,4 +27,4 @@ class APIRequest:
         if response.status_code == 200:
             return response.json()
         else:
-            raise Exception(f'ERROR: {response.status_code}')
+            raise TimeoutError(f'ERROR: {response.status_code}')

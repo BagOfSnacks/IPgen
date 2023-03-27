@@ -9,7 +9,7 @@ from IPgen.util import is_private_ip
 
 try:
     urlopen('https://www.google.com/', timeout=10)
-except:
+except Exception:
     pytest.skip(reason="No internet connection, API calls cannot be made", allow_module_level=True)
 
 
