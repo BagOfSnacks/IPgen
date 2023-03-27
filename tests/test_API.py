@@ -1,27 +1,16 @@
 import pytest
-import ipaddress
 
 from urllib.request import urlopen
 
 from IPgen.ipinfo import APIRequest
 from IPgen.generators import random_ipv4_address, random_ipv6_address
-from IPgen.util import is_ipv4_address, is_ipv6_address
+from IPgen.util import is_private_ip
 
 
 try:
     urlopen('https://www.google.com/', timeout=10)
 except:
     pytest.skip(reason="No internet connection, API calls cannot be made", allow_module_level=True)
-
-
-def is_private_ip(ip_str: str):
-    if is_ipv4_address(ip_str):
-        ip = ipaddress.IPv4Address(ip_str)
-        return ip.is_private
-
-    if is_ipv6_address(ip_str):
-        ip = ipaddress.IPv6Address(ip_str)
-        return ip.is_private
 
 
 def skip_if_private_ip(ip_str: str):
