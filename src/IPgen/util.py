@@ -1,7 +1,12 @@
 import re
 import ipaddress
 
-from IPgen.const import IP_v4_PATTERN, IP_v6_PATTERN, IP_v4_PARTITION_PATTERN, IP_v6_PARTITION_PATTERN
+from IPgen.const import (
+    IP_v4_PATTERN,
+    IP_v6_PATTERN,
+    IP_v4_PARTITION_PATTERN,
+    IP_v6_PARTITION_PATTERN,
+)
 
 
 def is_ipv4_address(address: str) -> bool:

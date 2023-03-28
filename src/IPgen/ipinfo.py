@@ -10,11 +10,11 @@ class APIRequest:
     """Class representation of an API request"""
 
     def __init__(self):
-        self.HEADERS = {'Content-Type': 'application/json'}
+        self.HEADERS = {"Content-Type": "application/json"}
 
     def send_API_request(self, IP: str, URL: str = API_URL) -> dict:
         if not is_ipv4_address(IP) and not is_ipv6_address(IP):
-            raise Exception('Input is not a valid IP address')
+            raise Exception("Input is not a valid IP address")
 
         url = self.format_request(URL, IP)
         request = requests.get(url, headers=self.HEADERS)
@@ -27,4 +27,4 @@ class APIRequest:
         if response.status_code == 200:
             return response.json()
         else:
-            raise TimeoutError(f'ERROR: {response.status_code}')
+            raise TimeoutError(f"ERROR: {response.status_code}")

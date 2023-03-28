@@ -31,29 +31,39 @@ class ArgParser(ArgumentParser):
         return self.args.get(key)
 
     def setup(self):
-        self.add_argument('-n',
-                                 '--amount',
-                                 type=int,
-                                 default=1,
-                                 help='Specify number of generated IP addresses')
-        self.add_argument('-v',
-                                 '--version',
-                                 type=int,
-                                 default=4,
-                                 choices=[4, 6],
-                                 help='Choose IP Address version\n'
-                                      'Accepts integer of either "4" or "6" as input')
-        self.add_argument('-i',
-                                 '--info',
-                                 action='store_true',
-                                 help='Display info of generated address(es) in JSON format\n'
-                                      'Creates an API call to http://ip-api.com/\n'
-                                      'Requires internet connection to work')
-        self.add_argument('-t',
-                                 '--txt',
-                                 type=str,
-                                 help='Save list of addresses to a specified location as a .txt file')
-        self.add_argument('-j',
-                                 '--json',
-                                 type=str,
-                                 help='Save list of addresses to a specified location as a json file')
+        self.add_argument(
+            "-n",
+            "--amount",
+            type=int,
+            default=1,
+            help="Specify number of generated IP addresses",
+        )
+        self.add_argument(
+            "-v",
+            "--version",
+            type=int,
+            default=4,
+            choices=[4, 6],
+            help="Choose IP Address version\n"
+            'Accepts integer of either "4" or "6" as input',
+        )
+        self.add_argument(
+            "-i",
+            "--info",
+            action="store_true",
+            help="Display info of generated address(es) in JSON format\n"
+            "Creates an API call to http://ip-api.com/\n"
+            "Requires internet connection to work",
+        )
+        self.add_argument(
+            "-t",
+            "--txt",
+            type=str,
+            help="Save list of addresses to a specified location as a .txt file",
+        )
+        self.add_argument(
+            "-j",
+            "--json",
+            type=str,
+            help="Save list of addresses to a specified location as a json file",
+        )

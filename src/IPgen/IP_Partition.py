@@ -5,7 +5,12 @@ from abc import ABC, abstractmethod
 from typing import Union
 
 from IPgen.util import num_to_hex, is_ipv6_partition
-from IPgen.const import IP_v4_RANGE_MIN, IP_v4_RANGE_MAX, IP_v6_RANGE_MAX, IP_v6_RANGE_MIN
+from IPgen.const import (
+    IP_v4_RANGE_MIN,
+    IP_v4_RANGE_MAX,
+    IP_v6_RANGE_MAX,
+    IP_v6_RANGE_MIN,
+)
 
 
 @dataclass(order=True, frozen=True)
@@ -14,6 +19,7 @@ class IP_Partition(ABC):
     Abstract data class that represents a single fragment/partition of IPv4 or IPv6 address.
     Provides sorting and order/comparison logic between addresses of the same type.
     """
+
     _sort_index: int = field(repr=False, init=False)
     value: int
     range_min: int
@@ -35,11 +41,11 @@ class IP_Partition(ABC):
 @dataclass(order=True, frozen=True)
 class IP_Partition_v4(IP_Partition):
     """
-        Represents a single partition of an IPv4 Address.
+    Represents a single partition of an IPv4 Address.
 
-        Params:
-            value: int
-                Integer value of a partition that then gets automatically clamped to a range of 0-255
+    Params:
+        value: int
+            Integer value of a partition that then gets automatically clamped to a range of 0-255
     """
 
     _sort_index: int = field(repr=False, init=False)
@@ -53,8 +59,8 @@ class IP_Partition_v4(IP_Partition):
         if not isinstance(value, int):
             raise ValueError("Input value has to be of a int type")
 
-        object.__setattr__(self, 'value', self.clamp_range(value))
-        object.__setattr__(self, '_sort_index', self.value)
+        object.__setattr__(self, "value", self.clamp_range(value))
+        object.__setattr__(self, "_sort_index", self.value)
 
     def clamp_range(self, val: int) -> int:
         if val < self.range_min:
@@ -70,12 +76,12 @@ class IP_Partition_v4(IP_Partition):
 @dataclass(order=True, frozen=True)
 class IP_Partition_v6(IP_Partition):
     """
-        Represents a single partition of an IPv6 Address.
+    Represents a single partition of an IPv6 Address.
 
-        Params:
-            value: int
-                Integer value of a partition that then gets automatically clamped to a range of 0-65535
-                Value then gets converted to a hexadecimal system
+    Params:
+        value: int
+            Integer value of a partition that then gets automatically clamped to a range of 0-65535
+            Value then gets converted to a hexadecimal system
     """
 
     _sort_index: int = field(repr=False, init=False)
@@ -87,13 +93,13 @@ class IP_Partition_v6(IP_Partition):
         super().__init__(value)
 
         if isinstance(value, str):
-            object.__setattr__(self, 'value', self.clamp_range_str(value))
+            object.__setattr__(self, "value", self.clamp_range_str(value))
         elif isinstance(value, int):
-            object.__setattr__(self, 'value', self.clamp_range(value))
+            object.__setattr__(self, "value", self.clamp_range(value))
         else:
             raise TypeError("Input value has to be of a int or string type")
 
-        object.__setattr__(self, '_sort_index', self.value)
+        object.__setattr__(self, "_sort_index", self.value)
 
     def clamp_range(self, val: int) -> str:
         if val < self.range_min:
