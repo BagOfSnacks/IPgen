@@ -58,9 +58,7 @@ def save_addresses_to_json(ip_addresses: list, location):
 
 
 def print_addresses(ip_addresses: list):
-    addresses_as_str: list[str] = list(
-        map(str, ip_addresses)
-    )
+    addresses_as_str: list[str] = list(map(str, ip_addresses))
     print(addresses_as_str)
 
 

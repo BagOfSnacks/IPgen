@@ -7,10 +7,12 @@ PATH = pathlib.Path(__file__).parent
 PYTHON_VER = "3.11"
 PYTEST_VER = "7.2.0"
 PYTHON_VER_NOT_MATCHING = (
-    "Tests cannot be run.\n" f"Minimum required Python version: {PYTHON_VER}"
+    "Tests cannot be run.\n" 
+    f"Minimum required Python version: {PYTHON_VER}"
 )
 PYTEST_VER_NOT_MATCHING = (
-    "Tests cannot be run.\n" f"Minimum required Pytest module version: {PYTEST_VER}"
+    "Tests cannot be run.\n" 
+    f"Minimum required Pytest module version: {PYTEST_VER}"
 )
 
 # IP Addresses
