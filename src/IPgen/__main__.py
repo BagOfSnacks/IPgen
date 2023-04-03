@@ -7,7 +7,7 @@ import sys
 from typing import Optional, Sequence, TYPE_CHECKING
 
 from IPgen.ArgParser import ArgParser
-from IPgen.FileSaver import TxtSaver, JSONSaver, FileSaver
+from IPgen.FileSaver import TxtSaver, JSONSaver
 from IPgen.generators import random_ipv4_address, random_ipv6_address
 from IPgen.ipinfo import APIRequest
 
