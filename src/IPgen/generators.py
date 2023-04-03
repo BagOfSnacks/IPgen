@@ -14,7 +14,6 @@ from IPgen.const import (
 from IPgen.util import num_to_hex
 
 
-
 def random_ipv4_address() -> IPAddressV4:
     address_partition_range = range(IP_v4_RANGE_MIN, IP_v4_RANGE_MAX + 1)
     address = tuple(random.sample(address_partition_range, IP_v4_LENGTH))

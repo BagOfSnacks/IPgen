@@ -19,6 +19,15 @@ def is_ipv6_address(address: str) -> bool:
     return True if matches else False
 
 
+def is_ip_address(address: str) -> bool:
+    if is_ipv6_address(address):
+        return True
+    elif is_ipv4_address(address):
+        return True
+    else:
+        return False
+
+
 def is_ipv4_partition(address_partition: str) -> bool:
     matches = re.match(IP_v4_PARTITION_PATTERN, address_partition)
     return True if matches else False

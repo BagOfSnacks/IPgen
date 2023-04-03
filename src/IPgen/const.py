@@ -52,6 +52,3 @@ TEST_JSON_FILENAME = TEST_TXT_FILENAME
 
 # Saving to file
 JSON_LIST_ABBREVIATION = "ip_addresses"
-
-# API
-API_URL = "http://ip-api.com/json/"
