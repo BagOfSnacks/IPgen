@@ -7,7 +7,7 @@ import sys
 from typing import Optional, Sequence, TYPE_CHECKING
 
 from IPgen.ArgParser import ArgParser
-from IPgen.FileSaver import TxtSaver, JSONSaver
+from IPgen.FileSaver import TxtSaver, JSONSaver, FileSaver
 from IPgen.generators import random_ipv4_address, random_ipv6_address
 from IPgen.ipinfo import APIRequest
 
@@ -29,21 +29,41 @@ def main(argv: Optional[Sequence[str]] = None):
         ]
 
     if ARG_PARSER.get_setting("info"):
-        API = APIRequest()
-        response = [API.send_API_request(str(ip)) for ip in ip_addresses]
-        ip_addresses = response
-        print(response)
+        JSON_response = make_API_calls(ip_addresses)
+        print(JSON_response)
     else:
-        print([list(map(str, ip_addresses))])
+        print_addresses(ip_addresses)
 
     if loc_txt := ARG_PARSER.get_setting("txt"):
-        TxtSaver(loc_txt, ip_addresses).save_to_file()
+        save_addresses_to_json(ip_addresses, loc_txt)
 
     if loc_json := ARG_PARSER.get_setting("json"):
-        JSONSaver(loc_json, ip_addresses).save_to_file()
+        save_addresses_to_json(ip_addresses, loc_json)
 
     sys.exit(0)
 
 
+def make_API_calls(ip_addresses: list) -> list[dict]:
+    API = APIRequest()
+    response = [API.send_API_request(str(ip)) for ip in ip_addresses]
+    return response
+
+
+def save_addresses_to_txt(ip_addresses: list, location):
+    TxtSaver(location, ip_addresses).save_to_file()
+
+
+def save_addresses_to_json(ip_addresses: list, location):
+    JSONSaver(location, ip_addresses).save_to_file()
+
+
+def print_addresses(ip_addresses: list):
+    addresses_as_str: list[str] = list(
+        map(str, ip_addresses)
+    )
+    print(addresses_as_str)
+
+
+# ==== Script Entry ==== #
 if __name__ == "__main__":
     main()

@@ -1,11 +1,11 @@
 """Console argument parser"""
 
 from argparse import ArgumentParser
-from typing import Any
+from typing import Any, Optional, Sequence
 
 
 class ArgParser(ArgumentParser):
-    def __init__(self, args: list[str]):
+    def __init__(self, args: Optional[Sequence[str]]):
         """
         Parse console arguments for use in script.
 
