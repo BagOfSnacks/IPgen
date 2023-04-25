@@ -51,8 +51,15 @@ pip install https://github.com/BagOfSnacks/IPgen.git
 ## Usage
 
 IPgen is a script launched via console and it also produces output to that console.
+
+### Run via entry point
+
+Usage:
+```
+ipgen [args]
+```  
   
-### Run IPgen from console
+### Run IPgen from directory
   
 Navigate to the ```./IPgen/src``` directory containing the project code and run the script via command line tool using the command:
 ```
