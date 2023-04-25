@@ -25,7 +25,9 @@ class ArgParser(ArgumentParser):
 
         self.args = self.parse_args(args)
         self.args: dict = vars(self.args)
-        print(self.args)
+
+        if self.get_setting("showargs"):
+            print(self.args)
 
     def get_setting(self, key: str) -> Any:
         return self.args.get(key)
@@ -66,4 +68,10 @@ class ArgParser(ArgumentParser):
             "--json",
             type=str,
             help="Save list of addresses to a specified location as a json file",
+        )
+        self.add_argument(
+            "-s",
+            "--showargs",
+            action="store_true",
+            help="Print list of arguments after program execution.",
         )
