@@ -35,10 +35,12 @@ def main(argv: Optional[Sequence[str]] = None):
         print_addresses(ip_addresses)
 
     if loc_txt := ARG_PARSER.get_setting("txt"):
-        save_addresses_to_json(ip_addresses, loc_txt)
+        for path in loc_txt:
+            save_addresses_to_txt(ip_addresses, path)
 
     if loc_json := ARG_PARSER.get_setting("json"):
-        save_addresses_to_json(ip_addresses, loc_json)
+        for path in loc_json:
+            save_addresses_to_json(ip_addresses, path)
 
     sys.exit(0)
 

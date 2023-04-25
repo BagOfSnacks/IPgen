@@ -1,6 +1,6 @@
 """Console argument parser"""
 
-from argparse import ArgumentParser
+from argparse import ArgumentParser, RawTextHelpFormatter
 from typing import Any, Optional, Sequence
 
 
@@ -21,6 +21,7 @@ class ArgParser(ArgumentParser):
         """
 
         super().__init__()
+        self.formatter_class = RawTextHelpFormatter
         self.setup()
 
         self.args = self.parse_args(args)
@@ -61,13 +62,19 @@ class ArgParser(ArgumentParser):
             "-t",
             "--txt",
             type=str,
-            help="Save list of addresses to a specified location as a .txt file",
+            action="append",
+            default=[],
+            help="Save list of addresses to a specified location as a .txt file\n"
+            "Argument can be repeatedly used to save addresses in multiple files",
         )
         self.add_argument(
             "-j",
             "--json",
             type=str,
-            help="Save list of addresses to a specified location as a json file",
+            action="append",
+            default=[],
+            help="Save list of addresses to a specified location as a json file\n"
+            "Argument can be repeatedly used to save addresses in multiple files",
         )
         self.add_argument(
             "-s",

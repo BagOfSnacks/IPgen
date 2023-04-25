@@ -7,8 +7,6 @@ from IPgen.ArgParser import ArgParser
     ([], 'amount', 1),
     (["-v 6"], 'version', 6),
     (["-v 4"], 'version', 4),
-    ([], 'json', None),
-    ([], 'txt', None),
 ])
 def test_arg_parsing(args: list[str], key: str, expected: str):
     parser = ArgParser(args)

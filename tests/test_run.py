@@ -39,7 +39,7 @@ def test_console_output(capsys):
     assert captured is not None
 
 def test_console_output_and_print_args(capsys):
-    default_out = r"{'amount': 1, 'version': 4, 'info': False, 'txt': None, 'json': None, 'showargs': True}"
+    default_out = r"{'amount': 1, 'version': 4, 'info': False, 'txt': [], 'json': [], 'showargs': True}"
     run_module(["-s"])
     captured = capsys.readouterr().out
     captured = captured.replace("\n", "")
